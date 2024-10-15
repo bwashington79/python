@@ -1,3 +1,5 @@
+import math
+
 # Get details of loan
 
 money_owed = float(input("How much money do you owe, in dollars?\n")) # $50,000
@@ -15,8 +17,10 @@ for i in range(months):
     # Add in interest
     money_owed = money_owed + interest_paid
 
+    print('Current money owed is', money_owed)
+
     if (money_owed - payment < 0):
-        print('The last payment is', money_owed)
+        print('The last payment is', round(money_owed))
         print('You paid off the loan in', i+1, 'months')
         break
 
@@ -24,4 +28,4 @@ for i in range(months):
     money_owed = money_owed - payment
 
     print('Paid', payment, 'of which', interest_paid, 'was interest', end=' ')
-    print('Now I owe', money_owed)
+    print('Now I owe', round(money_owed))
