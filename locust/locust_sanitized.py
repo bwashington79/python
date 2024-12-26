@@ -18,7 +18,7 @@ options.add_argument("--headless=new")
 driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 30000)
 
-file_path = 'testdata/testdata_sanitized.json'
+file_path = 'testdata_sanitized.json'
 
 #BEGIN----Locust
 class User(HttpUser):
