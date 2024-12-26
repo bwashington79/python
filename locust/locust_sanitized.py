@@ -18,7 +18,7 @@ options.add_argument("--headless=new")
 driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 30000)
 
-file_path = 'testdata/testdata.json'
+file_path = 'testdata/testdata_sanitized.json'
 
 #BEGIN----Locust
 class User(HttpUser):
@@ -37,32 +37,32 @@ class User(HttpUser):
     with open(file_path, 'r') as file:
         data = json.load(file)
 
-    usrname_json = data["<enter user name>"]["username"]
-    pwd_json = data["<enter password>"]["password"]
+    usrname_json = data["user_1"]["username"]
+    pwd_json = data["user_1"]["password"]
 
     driver.get(host)
 
     try:
         username = WebDriverWait(driver, 30).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "#input28"))
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "<enter css selector for username field>"))
         )
         print("The username field is visible!")
         username.clear()
         username.send_keys(usrname_json)
-        nextbtn = driver.find_element(By.CSS_SELECTOR, "#form20 > div.o-form-button-bar > input")
+        nextbtn = driver.find_element(By.CSS_SELECTOR, "<enter css selector for button>")
         nextbtn.click()
 
     except TimeoutException:
         print("Timed out waiting for the username text field to be visible!")
 
     try:
-        username = WebDriverWait(driver, 30).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "#input61"))
+        password = WebDriverWait(driver, 30).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "<enter css selector for password field>"))
         )
         print("The password field is visible!")
-        username.clear()
-        username.send_keys(pwd_json)
-        verifybtn = driver.find_element(By.CSS_SELECTOR, "#form53 > div.o-form-button-bar > input")
+        password.clear()
+        password.send_keys(pwd_json)
+        verifybtn = driver.find_element(By.CSS_SELECTOR, "<enter css selector for button>")
         verifybtn.click()
 
     except TimeoutException:
@@ -70,7 +70,7 @@ class User(HttpUser):
 
     try:
         text = WebDriverWait(driver, 40).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "body > div.container-fluid > div:nth-child(2) > div > h2"))
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "<enter css for some text that is displayed when page fully loads>"))
         )
         print("anchor text is visible!")
 
@@ -115,4 +115,3 @@ class User(HttpUser):
             print(response.content)
 
 #END----Locust
-
